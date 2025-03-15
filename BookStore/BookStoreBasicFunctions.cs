@@ -1,4 +1,5 @@
 ﻿using BookStore.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,37 @@ namespace BookStore
             using (var dbContext = new Se407BookstoreContext())
             {
                 return dbContext.Books.ToList();
+            }
+        }
+
+        public static List<Book> GetAllBooksFull()
+        {
+            {
+                using (var dbContext = new Se407BookstoreContext())
+                {
+                    var books = dbContext.Books
+                        .Include(books => books.Author)
+                        .Include(books => books.Genre)
+                        .ToList();
+
+                    return books;
+                }
+            }
+        }
+
+        public static Book GetFullBookById(int id)
+        {
+            {
+                using (var dbContext = new Se407BookstoreContext())
+                {
+                    var books = dbContext.Books
+                        .Include(b => b.Author)
+                        .Include(b => b.Genre)
+                        .Where(b => b.BookId == id)
+                        .FirstOrDefault();
+
+                    return books;
+                }
             }
         }
 
@@ -41,5 +73,12 @@ namespace BookStore
             }
         }
 
+        public static List<Genre> GetAllGenres()
+        {
+            using (var db = new Se407BookstoreContext())
+            {
+                return db.Genres.ToList();
+            }
+        }
     }
 }

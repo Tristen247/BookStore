@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BookStoreConsole": {
+      "commandName": "Project",
+      "commandLineArgs": "CSV GetBookByTitle \"Farid\""
+    }
+  }
+}
