@@ -35,6 +35,19 @@ namespace BookStore
             }
         }
 
+        public static Book GetFullBookByID(int id)
+        {
+            using (var db = new Se407BookstoreContext())
+            {
+                var book = db.Books
+                    .Include(m => m.Author)
+                    .Include(m => m.Genre)
+                    .Where(m => m.BookId == id)
+                    .FirstOrDefault();
+                return book;
+            }
+        }
+
         public static Book GetFullBookById(int id)
         {
             {
